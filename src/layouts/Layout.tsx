@@ -15,7 +15,11 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       <div className="main-content">
         <Header onHamburgerClick={() => setSidebarOpen(true)} />
         <div className="content">
-          {children}
+          <div className="card">    
+            <div className="card-content">
+              {children}
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./layouts/Layout";
-import Employees from "./features/employee/pages/Employees"; 
+import Employees from './features/employee/pages/Employees';
 import Employment from "./features/employment/pages/Employment";
 import Home from "./features/home/pages/Home"; 
 import Jobs from './features/job/pages/Jobs';

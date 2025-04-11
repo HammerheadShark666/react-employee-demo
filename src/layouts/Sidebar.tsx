@@ -15,7 +15,7 @@ const Sidebar: React.FC<Props> = ({ isOpen, onClose }) => {
 
       <aside className={`sidebar ${isOpen ? "open" : ""}`}>
         <div className="sidebar-header">
-          <h1 className="title-side-bar">Wolds HR</h1>
+          <h1 className="title-side-bar">WoldsHR</h1>
           <button className="close-btn" onClick={onClose}>
             ×
           </button>
