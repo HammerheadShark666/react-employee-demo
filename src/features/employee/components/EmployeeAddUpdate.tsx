@@ -41,7 +41,11 @@ const EmployeeAddUpdate: React.FC = () => {
         id: selectedEmployee.id,
         surname: data.surname.trim(),
         firstName: data.firstName.trim(),
-        dateOfBirth: data.dob //.toDateString()
+        hireDate: data.dob, //.toDateString()
+        department: "",
+        email: "",
+        phoneNumber: "",
+        photo: ""
       };
       dispatch(updateEmployee(updatedEmployee));
 
@@ -52,7 +56,11 @@ const EmployeeAddUpdate: React.FC = () => {
         id: 0,
         surname: data.surname.trim(),
         firstName: data.firstName.trim(),
-        dateOfBirth: data.dob//.toDateString()
+        hireDate: data.dob, //.toDateString()
+        department: "",
+        email: "",
+        phoneNumber: "",
+        photo: ""
       };
 
       dispatch(addEmployee(newEmployee));
@@ -65,7 +73,7 @@ const EmployeeAddUpdate: React.FC = () => {
     if(selectedEmployee != null) {
       setValue('surname', selectedEmployee.surname);
       setValue('firstName', selectedEmployee.firstName);
-      setValue('dob', selectedEmployee.dateOfBirth); // new Date());
+      setValue('dob', selectedEmployee.hireDate); // new Date());
     } else { 
      reset(); // Reset the form when no employee is selected
     }

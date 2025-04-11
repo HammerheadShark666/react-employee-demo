@@ -9,7 +9,7 @@ type Props = {
 const Header: React.FC<Props> = ({ onHamburgerClick }) => {
   return (
     <header className="header">      
-      <h1 className="title-header">Wolds HR</h1>
+      <h1 className="title-header">WoldsHR</h1>
       <TodaysDate></TodaysDate>
       <HamburgerMenu onClick={onHamburgerClick} />
     </header>

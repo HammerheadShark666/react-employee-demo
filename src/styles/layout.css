@@ -164,10 +164,11 @@
 .title-side-bar {
   display: block;
   margin: 0;
+  font-family: Arial, sans-serif;
 }
 
 .title-header {
-  display: block;
+  display: block; 
 }
 
 
@@ -222,6 +223,10 @@
 
 .employee-form {
   width: 60%;
+}
+
+button  {
+  padding: 10px;
 }
  
 
