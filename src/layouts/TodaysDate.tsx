@@ -1,6 +1,8 @@
 import React from "react";
+import styles from "./css/TodaysDate.module.css";
 
 const TodaysDate: React.FC = () => {
+  
   const today = new Date();
   const formattedDate = today.toLocaleDateString(undefined, {
     weekday: "long",
@@ -10,7 +12,7 @@ const TodaysDate: React.FC = () => {
   });
 
   return (
-    <div className="todays-date">
+    <div className={styles["todays-date"]}>
       {formattedDate}
     </div>
   );

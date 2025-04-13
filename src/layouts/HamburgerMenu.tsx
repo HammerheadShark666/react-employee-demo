@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./css/HamburgerMenu.module.css";
 
 type Props = {
   onClick: () => void;
@@ -6,7 +7,7 @@ type Props = {
 
 const HamburgerMenu: React.FC<Props> = ({ onClick }) => {
   return (
-    <button className="hamburger" onClick={onClick}>
+    <button className={styles["hamburger"]} onClick={onClick}>
       ☰
     </button>
   );

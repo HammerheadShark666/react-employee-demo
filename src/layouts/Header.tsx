@@ -1,6 +1,7 @@
 import React from "react";
 import HamburgerMenu from "./HamburgerMenu";
 import TodaysDate from "./TodaysDate";
+import styles from "./css/Header.module.css";
 
 type Props = {
   onHamburgerClick: () => void;
@@ -8,8 +9,8 @@ type Props = {
 
 const Header: React.FC<Props> = ({ onHamburgerClick }) => {
   return (
-    <header className="header">      
-      <h1 className="title-header">WoldsHR</h1>
+    <header className={styles["header"]}>      
+      <h1 className={styles["title-header"]}>WoldsHR</h1>
       <TodaysDate></TodaysDate>
       <HamburgerMenu onClick={onHamburgerClick} />
     </header>

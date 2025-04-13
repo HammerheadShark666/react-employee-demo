@@ -1,7 +1,7 @@
  
 
 import Header from './Header';  
-import "../styles/layout.css";
+import styles from "./css/Layout.module.css";
 import Sidebar from "./Sidebar"; 
 import { useState } from 'react'; 
 
@@ -10,13 +10,13 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   
   return (
-     <div className="layout">
+     <div className={styles["layout"]}>
       <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
-      <div className="main-content">
+      <div className={styles["main-content"]}>
         <Header onHamburgerClick={() => setSidebarOpen(true)} />
-        <div className="content">
-          <div className="card">    
-            <div className="card-content">
+        <div className={styles["content"]}>
+          <div className={styles["card"]}>    
+            <div className={styles["card-content"]}>
               {children}
             </div>
           </div>

@@ -1,0 +1,39 @@
+.toolbar {
+  display: flex;
+  flex-direction: row; 
+  gap: 1rem;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.search-bar {
+  gap: 0.5rem;
+  display: flex;
+  width: 50%;
+} 
+
+.search-bar input { 
+  width: 50%;
+} 
+
+.search-bar button {
+  border: none;
+}
+
+.search-bar button:hover {
+  background-color: rgba(207, 179, 199, 0.97);
+  border: 1px solid rgba(2, 2, 22, 0.4);
+  cursor: pointer;
+}
+        
+.toolbar-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+  
+@media (min-width: 600px) {
+
+  .search-bar input { 
+    width: 25%;
+  } 
+}
