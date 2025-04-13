@@ -1,10 +1,11 @@
-import { setSelectedEmployee, addNewEmployee } from '../employeeSlice';
+import { setSelectedEmployee } from '../employeeSlice';
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../app/store";
 import { useEffect, useRef, useState } from "react";
 import { Employee } from "../../../types/employee";
 import { fetchEmployees } from "../employeeThunks";
-import "../employees-list.css";
+import styles from "../css/Employees-list.module.css"; 
+import EmployeeListHeader from './EmployeeListHeader';
 
 const EmployeeList: React.FC = () => {
    
@@ -41,10 +42,8 @@ const EmployeeList: React.FC = () => {
 
   return (
     <>  
-      <div className="employee-list-header">
-      <button type="button" onClick={() => dispatch(addNewEmployee())}>Add New Employee</button>
-      </div>
-      <table className="employee-list-table">
+      <EmployeeListHeader></EmployeeListHeader>     
+      <table className={styles["employee-list-table"]}>
         <thead>
           <tr> 
             <th></th>
@@ -60,21 +59,21 @@ const EmployeeList: React.FC = () => {
           {employees.map((employee) => {           
             return (
               <tr key={employee.id} onClick={() => handleRowClick(employee)}>
-                <td><img src={`/${employee.photo}`} alt={`${employee.firstName} ${employee.surname}`} className="circle-img" /></td>
+                <td><img src={`/images/employees/${employee.photo}`} alt={`${employee.firstName} ${employee.surname}`} className={styles["circle-img"]} /></td>
                 <td>{employee.id}</td>
                 <td>{employee.firstName} {employee.surname}</td>
                 <td>{employee.department}</td>
-                <td><div><div className="employee-phone-number">{employee.phoneNumber}</div><div className="employee-email"><a href={`mailto:${employee.email}`}>{employee.email}</a></div></div></td>
+                <td><div><div className={styles["employee-phone-number"]}>{employee.phoneNumber}</div><div className={styles["employee-email"]}><a href={`mailto:${employee.email}`}>{employee.email}</a></div></div></td>
                 <td>{employee.hireDate}</td> 
                 <td className={`row ${openId === employee.id ? 'active' : ''}`}> 
-                  <div className="employee-list-actions-menu-container">  
-                    <button onClick={() => setOpenId(openId === employee.id ? null : employee.id)} className="employee-list-actions-menu-button">
+                  <div className={styles["employee-list-actions-menu-container"]}>  
+                    <button onClick={() => setOpenId(openId === employee.id ? null : employee.id)} className={styles["employee-list-actions-menu-button"]}>
                       ⋮
                     </button>
                     {openId === employee.id && (
-                      <div ref={menuRef} className="employee-list-actions-menu">
-                        <div className="employee-list-actions-menu-item" onClick={() => alert("Edit " + employee.id)}>Edit</div>
-                        <div className="employee-list-actions-menu-item" onClick={() => alert("Delete " + employee.id)}>Delete</div>
+                      <div ref={menuRef} className={styles["employee-list-actions-menu"]}>
+                        <div className={styles["employee-list-actions-menu-item"]} onClick={() => alert("Edit " + employee.id)}>Edit</div>
+                        <div className={styles["employee-list-actions-menu-item"]} onClick={() => alert("Delete " + employee.id)}>Delete</div>
                       </div>
                     )}
                   </div>
