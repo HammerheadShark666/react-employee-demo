@@ -59,7 +59,7 @@ const EmployeeList: React.FC = () => {
           {employees.map((employee) => {           
             return (
               <tr key={employee.id} onClick={() => handleRowClick(employee)}>
-                <td><img src={`/images/employees/${employee.photo}`} alt={`${employee.firstName} ${employee.surname}`} className={styles["circle-img"]} /></td>
+                <td><img src={ employee.photo !== "" ? `/images/employees/${employee.photo}` : "/images/employees/default.png"} alt={`${employee.firstName} ${employee.surname}`} className={styles["circle-img"]} /></td>
                 <td>{employee.id}</td>
                 <td>{employee.firstName} {employee.surname}</td>
                 <td>{employee.department}</td>
