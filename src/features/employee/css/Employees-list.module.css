@@ -44,11 +44,7 @@
   zIndex: 100;
   padding: 10px 0px;
 }
-
-.employee-list-actions-menu:hover {
-      
-}
-
+ 
 .employee-list-actions-menu-container
 { 
   display: flex;
@@ -71,8 +67,16 @@
 }
 
 .employee-list-actions-menu-item:hover {
-  background-color: rgba(167, 164, 243, 0.4); /* Change this to your desired hover color */
+  background-color: rgba(167, 164, 243, 0.4);
   cursor: pointer;
+  
+}
+
+.employee-photo-cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;   
+  height: 50px;
 }
 
 .circle-img {

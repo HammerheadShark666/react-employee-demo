@@ -12,6 +12,18 @@ export const fetchEmployees = createAsyncThunk<Employee[], void>('employees/fetc
       return response.data;
     }
   );
+
+type ApiResponse = {
+  employees: Employee[]
+  page: number
+  totalPages: number
+}
+ 
+export const searchEmployeeRecords = createAsyncThunk<ApiResponse, { keyword: string; page: number, pageSize: number }>
+  ('search/searchRecords', async ({ keyword, page, pageSize }) => {
+    const response = await axios.get(`/employees/search?keyword=${keyword}&page=${page}&pageSize=${pageSize}`)
+  return response.data;
+})
    
 export const addEmployee = createAsyncThunk('employee/addEmployee',
   async (employee: Employee, { rejectWithValue }) => {
