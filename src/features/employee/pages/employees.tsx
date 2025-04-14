@@ -1,4 +1,4 @@
-import EmployeeList from "../components/EmployeeList"; 
+import EmployeesContainer from "../components/employeesList/EmployeesContainer";
 import styles from "../css/Employee.module.css";
 
 const Employees: React.FC = () => {
@@ -6,7 +6,7 @@ const Employees: React.FC = () => {
     <>   
       <div className={styles["employee-container"]}>
         <div className={styles["employee-list"]}> 
-          <EmployeeList></EmployeeList>
+          <EmployeesContainer></EmployeesContainer>
         </div>       
       </div>
     </>
