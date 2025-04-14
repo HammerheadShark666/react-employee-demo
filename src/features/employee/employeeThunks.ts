@@ -2,16 +2,41 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { Employee } from '../../types/employee';
 import axios from '../../api/axiosInstance';
 
-export const fetchEmployees = createAsyncThunk<Employee[], void>('employees/fetchEmployees',
-    async () => {
-      const response = await axios.get('/employees', {
-        headers: { 
-          'Content-Type': 'application/json',
-        }
-      });
+// export const fetchEmployees = createAsyncThunk<Employee[], void>('employees/fetchEmployees',
+//   async () => {
+//     const response = await axios.get('/employees', {
+//       headers: { 
+//         'Content-Type': 'application/json',
+//       }
+//     });
+//     return response.data;
+//   }
+// );
+
+type ApiResponse = {
+  data: Employee[]
+  page: number
+  totalPages: number
+}
+
+export const searchEmployeeRecords = createAsyncThunk<ApiResponse, { keyword: string; page: number, pageSize: number }>
+    ('search/searchRecords', async ({ keyword, page, pageSize }) => {
+      const response = await axios.post(`/employees/search?query=${keyword}&page=${page}&pageSize=${pageSize}`)
       return response.data;
-    }
-  );
+})
+
+
+// export const searchEmployees = createAsyncThunk<Employee[], { keyword: string; page: number, pageSize: number }>('employees/searchEmployees',
+//   async (keyword: string, page: number, pageSize: number) => {
+
+//     const response = await axios.post('/employees/search?keyword={keyword}&page={page}&pageSize={pageSize}', {
+//       headers: { 
+//         'Content-Type': 'application/json',
+//       }
+//     });
+//     return response.data;
+//   }
+// );
    
 export const addEmployee = createAsyncThunk('employee/addEmployee',
   async (employee: Employee, { rejectWithValue }) => {

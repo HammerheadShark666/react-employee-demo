@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../app/store";
 import { useEffect, useRef, useState } from "react";
 import { Employee } from "../../../types/employee";
-import { fetchEmployees } from "../employeeThunks";
+import { searchEmployeeRecords } from "../employeeThunks";
 import styles from "../css/Employees-list.module.css"; 
 import EmployeeListHeader from './EmployeeListHeader';
 
@@ -12,15 +12,24 @@ const EmployeeList: React.FC = () => {
   const [openId, setOpenId] = useState<number | null>(null);
   const menuRef = useRef<HTMLDivElement>(null); 
   const dispatch = useDispatch<AppDispatch>();
-  const { employees, loading, error } = useSelector((state: RootState) => state.employee);
+  // const { employees, loading, error } = useSelector((state: RootState) => state.employee);
+  const { employees, page, totalPages, loading, keyword, error } = useSelector((state: RootState) => state.employeeSearch)
 
   const handleRowClick = (employee: Employee) => { 
     dispatch(setSelectedEmployee(employee));
   };
 
-  useEffect(() => {
-    dispatch(fetchEmployees());
-  }, [dispatch]);
+  const handlePrev = () => {
+    if (page > 1) dispatch(searchEmployeeRecords({ keyword, page: page - 1, pageSize: 10 }))
+  }
+
+  const handleNext = () => {
+    if (page < totalPages) dispatch(searchEmployeeRecords({ keyword, page: page + 1, pageSize: 10 }))
+  }
+
+  // useEffect(() => {
+  //   dispatch(fetchEmployees());
+  // }, [dispatch]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -59,7 +68,11 @@ const EmployeeList: React.FC = () => {
           {employees.map((employee) => {           
             return (
               <tr key={employee.id} onClick={() => handleRowClick(employee)}>
-                <td><img src={ employee.photo !== "" ? `/images/employees/${employee.photo}` : "/images/employees/default.png"} alt={`${employee.firstName} ${employee.surname}`} className={styles["circle-img"]} /></td>
+                <td><img src={ employee.photo !== "" ? `/images/employees/${employee.photo}` : "/images/employees/default.png"} 
+                        alt={`${employee.firstName} ${employee.surname}`} className={styles["circle-img"]}
+                        onError={(e) => {
+                          e.currentTarget.src = "/images/employees/default.png";
+                        }} /></td>
                 <td>{employee.id}</td>
                 <td>{employee.firstName} {employee.surname}</td>
                 <td>{employee.department}</td>
@@ -83,6 +96,25 @@ const EmployeeList: React.FC = () => {
           })}
         </tbody>
       </table>
+      <div className="flex justify-between items-center mt-4">
+          <button
+            onClick={handlePrev}
+            disabled={page === 1}
+            className="px-4 py-2 bg-blue-500 text-white rounded disabled:bg-gray-400"
+          >
+            Previous
+          </button>
+          <span>
+            Page {page} of {totalPages}
+          </span>
+          <button
+            onClick={handleNext}
+            disabled={page === totalPages}
+            className="px-4 py-2 bg-blue-500 text-white rounded disabled:bg-gray-400"
+          >
+            Next
+          </button>
+        </div>
     </>
   );
 };
