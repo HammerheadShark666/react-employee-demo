@@ -32,7 +32,13 @@
   padding-top: 0.5rem;
 }
 
+.page-numbers {
+  display: flex;
+  align-items: center;
+  padding-top: 0.5rem;
+}
+
 .left-group {
   display: flex;
-  gap: 1rem; /* space between left items */
+  gap: 1rem;
 }
