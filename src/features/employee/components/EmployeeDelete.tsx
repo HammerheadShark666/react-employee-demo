@@ -5,11 +5,11 @@ import { RootState } from "../../../app/store";
 import { useSelector } from "react-redux";
 import { deleteEmployee } from "../employeeThunks";
 
-interface EmployeeDeleteProps {
+interface IProps {
   employeeId: number; 
 }
  
-const EmployeeDelete: React.FC<EmployeeDeleteProps> = ({ employeeId }) => {
+const EmployeeDelete: React.FC<IProps> = ({ employeeId }) => {
 
   const { loading, error } = useSelector((state: RootState) => state.employee);
   const dispatch = useAppDispatch();

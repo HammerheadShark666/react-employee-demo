@@ -3,15 +3,15 @@ import { Employee } from '../../types/employee';
 import axios from '../../api/axiosInstance';
 
 export const fetchEmployees = createAsyncThunk<Employee[], void>('employees/fetchEmployees',
-    async () => {
-      const response = await axios.get('/employees', {
-        headers: { 
-          'Content-Type': 'application/json',
-        }
-      });
-      return response.data;
-    }
-  );
+  async () => {
+    const response = await axios.get('/employees', {
+      headers: { 
+        'Content-Type': 'application/json',
+      }
+    });
+    return response.data;
+  }
+);
 
 type ApiResponse = {
   employees: Employee[]
@@ -36,7 +36,7 @@ export const addEmployee = createAsyncThunk('employee/addEmployee',
         },
       };
       
-      const response = await axios.post( '/employees', employee, config);      
+      const response = await axios.post( '/employees/add', employee, config);      
       return response.data; 
 
     } catch (error: any) { 

@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { addNewEmployee } from '../../employeeSlice';
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../../app/store";
+// import { addNewEmployee } from '../../employeeSlice';
+// import { useDispatch } from "react-redux";
+// import { AppDispatch } from "../../../../app/store";
 import styles from "../../css/Employee-list-toolbar.module.css";
 import { Search } from 'lucide-react';
+import EmployeePopupForm from '../EmployeePopupForm';
 
 type Props = {
   onSearch: (term: string) => void;
@@ -11,8 +12,9 @@ type Props = {
 
 const ToolBar = ({ onSearch }: Props) => {
 
-  const dispatch = useDispatch<AppDispatch>();
+  //const dispatch = useDispatch<AppDispatch>();
   const [input, setInput] = useState('');
+  const [showEmployeePopForm, setShowEmployeePopForm] = useState(false);
 
   const handleSearch = () => {
     onSearch(input);
@@ -38,10 +40,11 @@ const ToolBar = ({ onSearch }: Props) => {
           <button onClick={handleSearch}><Search /></button>
         </div>
         <div className={styles["toolbar-buttons"]}>
-          <button type="button" onClick={() => dispatch(addNewEmployee())}>Add New Employee</button>
+          <button type="button" onClick={() => setShowEmployeePopForm(true)}>Add New Employee</button>
           <button type="button">Import Employees</button>
         </div>
       </div>
+      {showEmployeePopForm && <EmployeePopupForm onClose={() => setShowEmployeePopForm(false)} />}
     </div>
   );
 };

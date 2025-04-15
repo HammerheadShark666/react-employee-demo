@@ -14,7 +14,7 @@ const DataTable = ({ rows }: Props) => {
   const [openId, setOpenId] = useState<number | null>(null);
   const menuRef = useRef<HTMLDivElement>(null); 
   const dispatch = useDispatch<AppDispatch>();
-  const { employees, loading, error } = useSelector((state: RootState) => state.employeeList);
+  const { employees, loading, error } = useSelector((state: RootState) => state.employeeList); 
 
   const handleRowClick = (employee: Employee) => { 
     dispatch(setSelectedEmployee(employee));
@@ -64,7 +64,7 @@ const DataTable = ({ rows }: Props) => {
               <td>{employee.firstName} {employee.surname}</td>
               <td>{employee.department}</td>
               <td><div><div className={styles["employee-phone-number"]}>{employee.phoneNumber}</div><div className={styles["employee-email"]}><a href={`mailto:${employee.email}`}>{employee.email}</a></div></div></td>
-              <td>{employee.hireDate}</td> 
+              <td>{employee.hireDate ? employee.hireDate : ""}</td> 
               <td className={`row ${openId === employee.id ? 'active' : ''}`}> 
                 <div className={styles["employee-list-actions-menu-container"]}>  
                   <button onClick={() => setOpenId(openId === employee.id ? null : employee.id)} className={styles["employee-list-actions-menu-button"]}>

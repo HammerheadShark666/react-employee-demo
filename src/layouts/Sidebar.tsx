@@ -3,12 +3,12 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import styles from "./css/Sidebar.module.css";  
 
-type Props = {
+interface IProps {
   isOpen: boolean;
   onClose: () => void;
 };
 
-const Sidebar: React.FC<Props> = ({ isOpen, onClose }) => {
+const Sidebar: React.FC<IProps> = ({ isOpen, onClose }) => {
   return (
     <> 
       {isOpen && <div className={styles["overlay"]} onClick={onClose} />} 

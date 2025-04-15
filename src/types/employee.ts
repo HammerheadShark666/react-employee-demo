@@ -4,9 +4,10 @@ export type Employee =
   id: number;
   surname: string; 
   firstName: string;
+  dateOfBirth: string | null;  
   department: string;
-  email: string;
-  hireDate: string;
+  email: string | null; 
+  hireDate: string | null; 
   phoneNumber: string;
   photo: string;
 }
