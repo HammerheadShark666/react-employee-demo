@@ -17,6 +17,7 @@ type ApiResponse = {
   employees: Employee[]
   page: number
   totalPages: number
+  totalEmployees: number
 }
  
 export const searchEmployeeRecords = createAsyncThunk<ApiResponse, { keyword: string; page: number, pageSize: number }>

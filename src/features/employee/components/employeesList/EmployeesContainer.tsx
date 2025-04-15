@@ -11,7 +11,7 @@ import EmployeesTable from './EmployeesTable';
 const EmployeesContainer = () => {
 
   const dispatch = useDispatch<AppDispatch>();
-  const { employees, total, page, loading, search } = useSelector((state: RootState) => state.employeeList);
+  const { employees, totalPages, totalEmployees, page, loading, search } = useSelector((state: RootState) => state.employeeList);
   
   const handleSearch = (term: string) => { 
     dispatch(setSearch(term));
@@ -27,7 +27,7 @@ const EmployeesContainer = () => {
     <div className="p-4">
       <ToolBar onSearch={handleSearch} />
       {loading ? <p>Loading...</p> : <EmployeesTable rows={employees} />}
-      <Pagination totalPages={total} currentPage={page} onPageChange={handlePageChange} />
+      <Pagination totalPages={totalPages} totalEmployees={totalEmployees} currentPage={page} onPageChange={handlePageChange} />
     </div>
   );
 };
