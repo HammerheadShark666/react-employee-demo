@@ -4,23 +4,28 @@ import { useDispatch, useSelector } from 'react-redux';
 import ToolBar from './ToolBar';
 import Pagination from './Pagination'; 
 import { AppDispatch, RootState } from '../../../../app/store';
-import { setPage, setSearch } from '../../employeeListSlice';
+import { clearEmployees, setPage, setSearch } from '../../employeeListSlice';
 import { searchEmployeeRecords } from '../../employeeThunks'; 
 import EmployeesTable from './EmployeesTable';
 
 const EmployeesContainer = () => {
 
   const dispatch = useDispatch<AppDispatch>();
-  const { employees, totalPages, totalEmployees, page, loading, search } = useSelector((state: RootState) => state.employeeList);
+  const { employees, totalPages, totalEmployees, page, loading, keyword } = useSelector((state: RootState) => state.employeeList);
   
-  const handleSearch = (term: string) => { 
-    dispatch(setSearch(term));
-    dispatch(searchEmployeeRecords({ page: 1, keyword: term, pageSize: 5 }));
+  const handleSearch = (keyword: string) => { 
+
+   if(keyword !== '') {
+      dispatch(setSearch(keyword));
+      dispatch(searchEmployeeRecords({ page: 1, keyword: keyword, pageSize: 5 }));
+    } else {
+      dispatch(clearEmployees());
+    }
   };
 
   const handlePageChange = (pageNumber: number) => {
     dispatch(setPage(pageNumber));
-    dispatch(searchEmployeeRecords({ page: pageNumber, keyword: search, pageSize: 5 }));
+    dispatch(searchEmployeeRecords({ page: pageNumber, keyword: keyword, pageSize: 5 }));
   };
 
   return (
