@@ -12,7 +12,7 @@ const Pagination = ({ totalPages, currentPage, totalEmployees, onPageChange }: P
   return (
     <div className={styles["pagination-container"]}>
       <div className={styles["left-group"]}>
-        <div>
+        <div className={styles["pages-numbers"]}>
           {Array.from({ length: totalPages }, (_, i) => (
             <button key={i} onClick={() => onPageChange(i + 1)}>{i + 1}</button>
           ))}
