@@ -20,11 +20,11 @@ const Sidebar: React.FC<Props> = ({ isOpen, onClose }) => {
             ×
           </button>
         </div>
-        <ul className={styles["sidebar-menu"]}> 
-          <li><NavLink to="/" className={({ isActive }) => `${styles.sidebarLink} ${isActive ? styles.active : ""}`} ><House /><span>Home</span></NavLink></li> 
-          <li><NavLink to="/employees" className={({ isActive }) => `${styles.sidebarLink} ${isActive ? styles.active : ""}`} ><CircleUserRound /><span>Employees</span></NavLink></li>   
-          <li><NavLink to="/employment" className={({ isActive }) => `${styles.sidebarLink} ${isActive ? styles.active : ""}`} > <Calendar1 /><span>Employment</span></NavLink></li>           
-          <li><NavLink to="/jobs" className={({ isActive }) => `${styles.sidebarLink} ${isActive ? styles.active : ""}`} > <BriefcaseBusiness /><span>Jobs</span></NavLink></li>   
+        <ul className={styles["sidebar-menu"]}>          
+          <li><NavLink to="/" className={({ isActive }) => `${styles["sidebarLink"]} ${isActive ? styles["active"] : ""}`}><House /><span>Home</span></NavLink></li> 
+          <li><NavLink to="/employees" className={({ isActive }) => `${styles["sidebarLink"]} ${isActive ? styles["active"] : ""}`}><CircleUserRound /><span>Employees</span></NavLink></li>   
+          <li><NavLink to="/employment" className={({ isActive }) => `${styles["sidebarLink"]} ${isActive ? styles["active"] : ""}`}> <Calendar1 /><span>Employment</span></NavLink></li>           
+          <li><NavLink to="/jobs" className={({ isActive }) => `${styles["sidebarLink"]} ${isActive ? styles["active"] : ""}`}> <BriefcaseBusiness /><span>Jobs</span></NavLink></li>   
         </ul>
       </aside>
     </>

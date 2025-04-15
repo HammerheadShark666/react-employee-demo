@@ -7,7 +7,7 @@ interface TableState {
   totalPages: number;
   totalEmployees: number;
   page: number;
-  search: string;
+  keyword: string;
   loading: boolean;
   error: string | null;
 }
@@ -17,7 +17,7 @@ const initialState: TableState = {
   totalPages: 0,
   totalEmployees: 0,
   page: 1,
-  search: '',
+  keyword: '',
   loading: false,
   error: null,
 };
@@ -27,11 +27,17 @@ const employeeSearchSlice = createSlice({
   initialState,
   reducers: {
     setSearch(state, action: PayloadAction<string>) {
-      state.search = action.payload;
+      state.keyword = action.payload;
       state.page = 1;
     },
     setPage(state, action: PayloadAction<number>) {
       state.page = action.payload;
+    },
+    clearEmployees(state) {
+      state.employees = [];
+      state.totalPages = 0;
+      state.totalEmployees = 0;
+      state.page = 0;
     },
   },
   extraReducers: (builder) => {
@@ -54,5 +60,5 @@ const employeeSearchSlice = createSlice({
   },
 });
 
-export const { setSearch, setPage } = employeeSearchSlice.actions;
+export const { setSearch, setPage, clearEmployees } = employeeSearchSlice.actions;
 export default employeeSearchSlice.reducer;
