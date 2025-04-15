@@ -4,7 +4,8 @@ import { Employee } from '../../types/employee';
 
 interface TableState {
   employees: Employee[];
-  total: number;
+  totalPages: number;
+  totalEmployees: number;
   page: number;
   search: string;
   loading: boolean;
@@ -13,7 +14,8 @@ interface TableState {
 
 const initialState: TableState = {
   employees: [],
-  total: 0,
+  totalPages: 0,
+  totalEmployees: 0,
   page: 1,
   search: '',
   loading: false,
@@ -40,7 +42,8 @@ const employeeSearchSlice = createSlice({
       })
       .addCase(searchEmployeeRecords.fulfilled, (state, action) => {
         state.employees = action.payload.employees;
-        state.total = action.payload.totalPages;
+        state.totalPages = action.payload.totalPages;
+        state.totalEmployees = action.payload.totalEmployees;
         state.page = action.payload.page
         state.loading = false;
       })

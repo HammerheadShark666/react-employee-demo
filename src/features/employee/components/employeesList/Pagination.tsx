@@ -1,25 +1,35 @@
+import styles from "../../css/Employee-list-pagination.module.css"
+
 type Props = {
-    totalPages: number;
-    currentPage: number;
-    onPageChange: (page: number) => void;
-  };
+  totalPages: number;
+  totalEmployees: number
+  currentPage: number;
+  onPageChange: (page: number) => void;
+};
   
-  const Pagination = ({ totalPages, currentPage, onPageChange }: Props) => {
+const Pagination = ({ totalPages, currentPage, totalEmployees, onPageChange }: Props) => {
   
-    return (
-      <div className="mt-4 flex gap-2">
-        {Array.from({ length: totalPages }, (_, i) => (
-          <button
-            key={i}
-            className={`px-3 py-1 border rounded ${currentPage === i + 1 ? 'bg-blue-500 text-white' : ''}`}
-            onClick={() => onPageChange(i + 1)}
-          >
-            {i + 1}
-          </button>
-        ))}
+  return (
+    <div className={styles["pagination-container"]}>
+      <div className={styles["left-group"]}>
+        <div>
+          {Array.from({ length: totalPages }, (_, i) => (
+            <button key={i} onClick={() => onPageChange(i + 1)}>{i + 1}</button>
+          ))}
+        </div>
+        <div className={styles["number-of-pages"]}>
+          <span >
+            Page {currentPage} of {totalPages}
+          </span>
+        </div>
       </div>
-    );
-  };
+      <div className={styles["number-of-employees"]}>
+        <span>
+          Total Employees: {totalEmployees}
+        </span>
+      </div>
+    </div>
+  );
+};
   
-  export default Pagination;
-  
+export default Pagination;  

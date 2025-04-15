@@ -3,6 +3,7 @@
   margin-top: 10px; 
   font-size: smaller;
   font-family: Arial, sans-serif;
+  border-bottom: 1px solid rgba(231, 224, 229, 0.97);
 }
 
 .employee-list-table tr th {
