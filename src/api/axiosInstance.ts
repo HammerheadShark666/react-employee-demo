@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'https://localhost:7140', // set your base URL here
+  baseURL: 'https://localhost:7044', // set your base URL here
 });
   
 // Add a request interceptor
@@ -18,3 +18,5 @@ axiosInstance.interceptors.request.use(
 );
 
 export default axiosInstance;
+
+// TODO - put baseUrl in env

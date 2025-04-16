@@ -33,6 +33,8 @@ export const employeeSchema = z.object({
    .min(0).max(25, { message: 'Phone number must be less than 25 characters' })
    .nullable()   
    .optional(),
+
+   // TODO - validate dates
 }); 
  
 export type EmployeeSchema = z.infer<typeof employeeSchema>;
