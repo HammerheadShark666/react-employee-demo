@@ -16,13 +16,14 @@
   width: 50%;
 } 
 
-.search-bar button {
-  border: none;
+.search-bar button { 
+  background-color: rgba(167, 164, 243, 0.4);
+  border: 1px solid rgba(2, 2, 22, 0.4);
+  padding-top: 5px;
 }
 
 .search-bar button:hover {
-  background-color: rgba(167, 164, 243, 0.4);
-  border: 1px solid rgba(2, 2, 22, 0.4);
+  background-color: rgba(207, 179, 199, 0.97);  
   cursor: pointer;
 }
         
@@ -31,10 +32,17 @@
   gap: 0.5rem;
 }
 
-.toolbar-buttons button:hover {   
+/* .toolbar-buttons button {
   background-color: rgba(167, 164, 243, 0.4);
-  cursor: pointer;
+  border: none;
+  padding: 0.5rem; 
+  border: 1px solid rgba(2, 2, 22, 0.4);
 }
+
+.toolbar-buttons button:hover {   
+  background-color: rgba(207, 179, 199, 0.97);
+  cursor: pointer;
+} */
   
 @media (min-width: 600px) {
 

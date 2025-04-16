@@ -4,26 +4,51 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../../app/store";
 import { setSelectedEmployee } from "../../employeeSlice";
 import styles from "../../css/Employees-list.module.css"; 
+import EmployeePopupForm from "../employeeForm/EmployeePopupForm";
 
 type Props = {
   rows: Employee[];
+  setShowEmployeePopForm: React.Dispatch<React.SetStateAction<boolean>>;
+  showEmployeePopForm: boolean; 
 };  
   
-const DataTable = ({ rows }: Props) => {
+const DataTable = ({ rows, setShowEmployeePopForm, showEmployeePopForm }: Props) => {
 
-  const [openId, setOpenId] = useState<number | null>(null);
-  const menuRef = useRef<HTMLDivElement>(null); 
   const dispatch = useDispatch<AppDispatch>();
-  const { employees, loading, error } = useSelector((state: RootState) => state.employeeList);
+  const [openMenu, setOpenMenu] = useState<number | null>(null);
+  const menuRef = useRef<HTMLDivElement>(null); 
+  const { employees, loading, error } = useSelector((state: RootState) => state.employeeList);  
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleRowClick = (employee: Employee) => { 
     dispatch(setSelectedEmployee(employee));
   };
 
+  const handleEditClick = () => { 
+    setShowEmployeePopForm(true);
+    setOpenMenu(0);
+  }
+
+  const handleDeleteClick = (employeeId: number) => {
+    setOpenMenu(0);
+    alert(employeeId)
+  }
+
+  const handlePhotoClick = (employeeId: number) => {
+    fileInputRef.current?.click();
+  }
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      console.log('Selected file:', file.name);
+    }
+  };
+      
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setOpenId(null);
+        setOpenMenu(null);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);    
@@ -59,21 +84,30 @@ const DataTable = ({ rows }: Props) => {
                   alt={`${employee.firstName} ${employee.surname}`} className={styles["circle-img"]} 
                   onError={(e) => {
                     e.currentTarget.src = "/images/employees/default.png";
-                  }} /></td>
+                  }} onClick={() => handlePhotoClick(employee.id)} />
+
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    onChange={handleFileChange}
+                    style={{ display: 'none' }}
+                  />
+              </td>
               <td>{employee.id}</td>
-              <td>{employee.firstName} {employee.surname}</td>
-              <td>{employee.department}</td>
+              <td>{employee.firstName} {employee.surname}</td> 
+              <td>{employee.department ? employee.department.name : ""}</td>
               <td><div><div className={styles["employee-phone-number"]}>{employee.phoneNumber}</div><div className={styles["employee-email"]}><a href={`mailto:${employee.email}`}>{employee.email}</a></div></div></td>
-              <td>{employee.hireDate}</td> 
-              <td className={`row ${openId === employee.id ? 'active' : ''}`}> 
+              <td>{employee.hireDate ? employee.hireDate : ""}</td> 
+              <td className={`row ${openMenu === employee.id ? 'active' : ''}`}> 
                 <div className={styles["employee-list-actions-menu-container"]}>  
-                  <button onClick={() => setOpenId(openId === employee.id ? null : employee.id)} className={styles["employee-list-actions-menu-button"]}>
+                  <button onClick={() => setOpenMenu(openMenu === employee.id ? null : employee.id)} className={styles["employee-list-actions-menu-button"]}>
                     ⋮
                   </button>
-                  {openId === employee.id && (
+                  {openMenu === employee.id && (
                     <div ref={menuRef} className={styles["employee-list-actions-menu"]}>
-                      <div className={styles["employee-list-actions-menu-item"]} onClick={() => alert("Edit " + employee.id)}>Edit</div>
-                      <div className={styles["employee-list-actions-menu-item"]} onClick={() => alert("Delete " + employee.id)}>Delete</div>
+                      <div className={styles["employee-list-actions-menu-item"]} onClick={() => handleEditClick()}>Edit</div>
+                      <div className={styles["employee-list-actions-menu-item"]} onClick={() => handleDeleteClick(employee.id)}>Delete</div>
+                      {showEmployeePopForm && <EmployeePopupForm setShowEmployeePopForm={setShowEmployeePopForm} />}
                     </div>
                   )}
                 </div>
@@ -86,4 +120,4 @@ const DataTable = ({ rows }: Props) => {
   )
 };
   
-export default DataTable;  
+export default DataTable;
