@@ -5,11 +5,18 @@ export type Employee =
   surname: string; 
   firstName: string;
   dateOfBirth: string | null;  
-  department: string;
   email: string | null; 
   hireDate: string | null; 
-  phoneNumber: string;
+  phoneNumber: string | null;
   photo: string;
+  departmentId: number | null; 
+  department: Department | null; 
+}
+
+export type Department = 
+{
+  id: number;
+  name: string; 
 }
 
 export function isEmployee(obj: any): obj is Employee {

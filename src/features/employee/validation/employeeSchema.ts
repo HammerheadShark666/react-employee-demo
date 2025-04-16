@@ -8,19 +8,31 @@ export const employeeSchema = z.object({
     .refine((val) => !isNaN(Date.parse(val)), {
       message: "Please enter a valid date of birth",
     })
+    .nullable()   
     .optional(),
   hireDate: z
     .string() 
     .refine((val) => !isNaN(Date.parse(val)), {
       message: "Please enter a valid hire date",
     })
+    .nullable()   
     .optional(),  
   email: z
     .string()
+    .min(0).max(250, { message: 'Email must be less than 250 characters' })
     .email({ message: "Invalid email address" })
+    .nullable()   
     .optional(),
-  department: z
+  departmentId: z
    .number()
+   .min(0).max(7, { message: 'Department id not valid' })
+   .nullable()
+   .optional(), 
+   phoneNumber: z
+   .string()
+   .min(0).max(25, { message: 'Phone number must be less than 25 characters' })
+   .nullable()   
+   .optional(),
 }); 
  
 export type EmployeeSchema = z.infer<typeof employeeSchema>;

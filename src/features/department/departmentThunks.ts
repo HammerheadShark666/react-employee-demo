@@ -4,11 +4,7 @@ import { Department } from '../../types/department';
 
 export const fetchDepartments = createAsyncThunk<Department[], void>('departments/fetchDepartments',
   async () => {
-    const response = await axios.get('/departments', {
-      headers: { 
-        'Content-Type': 'application/json',
-      }
-    });
+    const response = await axios.get('/departments', {});
     return response.data;
   }
 );

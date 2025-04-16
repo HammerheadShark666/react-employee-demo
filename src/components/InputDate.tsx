@@ -26,9 +26,9 @@ const InputDate = ({ name, control, label, error }: IProps) => {
                 {...field}
                 type="date"
                 id={name}              
-                value={field.value || ""}
+                value={field.value ?? ""}
                 placeholder={`${label}...`}
-                onChange={(e) => field.onChange(e.target.value)}
+                onChange={(e) => field.onChange(e.target.value || null)}
               />
             </div>
           )}

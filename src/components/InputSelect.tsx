@@ -25,8 +25,9 @@ const InputSelect = ({ name, items, label, control, error }: IProps) => {
           render={({ field }) => (
             <div className={styles["dropdown"]}>
               <select 
-                id={name}  
+                id={name}                  
                 {...field}
+                onChange={(e) => field.onChange(Number(e.target.value))} 
                 className={styles["select"]}>
                   <option value="">Select...</option>
                   {items.map((item) => (

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { searchEmployeeRecords } from './employeeThunks';
-import { Employee } from '../../types/employee';
+import { Employee } from '../../types/employee'; 
 
 interface TableState {
   employees: Employee[];
@@ -23,7 +23,7 @@ const initialState: TableState = {
 };
  
 const employeeSearchSlice = createSlice({
-  name: 'table',
+  name: 'employeeSearch',
   initialState,
   reducers: {
     setSearch(state, action: PayloadAction<string>) {
@@ -38,6 +38,11 @@ const employeeSearchSlice = createSlice({
       state.totalPages = 0;
       state.totalEmployees = 0;
       state.page = 0;
+    },
+    updateEmployeeInList: (state, action: PayloadAction<Employee>) => {
+      state.employees = state.employees.map(emp =>
+        emp.id === action.payload.id ? action.payload : emp
+      );
     },
   },
   extraReducers: (builder) => {
@@ -56,9 +61,9 @@ const employeeSearchSlice = createSlice({
       .addCase(searchEmployeeRecords.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || 'Failed to load data';
-      });
+      })
   },
 });
 
-export const { setSearch, setPage, clearEmployees } = employeeSearchSlice.actions;
+export const { setSearch, setPage, clearEmployees, updateEmployeeInList } = employeeSearchSlice.actions;
 export default employeeSearchSlice.reducer;

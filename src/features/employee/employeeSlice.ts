@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'; 
 import { Employee } from '../../types/employee';
-import { addEmployee, deleteEmployee, fetchEmployees, updateEmployee } from './employeeThunks';
+import { addEmployee, deleteEmployee, updateEmployee } from './employeeThunks';
  
 // Define the initial state using that type
 interface EmployeeState {
@@ -8,6 +8,7 @@ interface EmployeeState {
   selectedEmployee: Employee | null;
   loading: boolean;
   error: string | null;
+  validationErrors: string[] | null;
 }
 
 // Initial state of the slice
@@ -15,35 +16,24 @@ const initialState: EmployeeState = {
   employees: [],
   selectedEmployee: null,
   loading: false,
-  error: null
+  error: null,
+  validationErrors: null
 };
  
 // Create the employee slice
 const employeeSlice = createSlice({
   name: 'employee',
   initialState,
-  reducers: {
-    setSelectedEmployee: (state, action: PayloadAction<Employee>) => {
+  reducers: { 
+    setSelectedEmployee: (state, action: PayloadAction<Employee | null>) => { 
       state.selectedEmployee = action.payload;
     },
-    addNewEmployee: (state) => {
-      state.selectedEmployee = null;
+    clearValidationErrors: (state) => {
+      state.validationErrors = null;
     },
   },
   extraReducers: (builder) => {
-    builder
-      .addCase(fetchEmployees.pending, (state) => {
-        state.loading = true;
-      })
-      .addCase(fetchEmployees.fulfilled, (state, action: PayloadAction<Employee[]>) => {
-        state.loading = false;
-        state.employees = action.payload;
-        state.error = null;
-      })
-      .addCase(fetchEmployees.rejected, (state, action) => {
-        state.loading = false;
-        state.error = action.error.message || 'Failed to fetch employees';
-      }) 
+    builder     
       .addCase(addEmployee.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -55,24 +45,19 @@ const employeeSlice = createSlice({
       })
       .addCase(addEmployee.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message || 'Failed to add employee';
+        state.validationErrors = (action.payload as string[]) || ['Failed to add employee'];
       })
       .addCase(updateEmployee.pending, (state) => {
         state.loading = true;
         state.error = null;
       })
       .addCase(updateEmployee.fulfilled, (state, action) => {
-        state.loading = false; 
-
-        const updatedEmployee = action.payload;
-        state.employees = state.employees.map(emp =>
-          emp.id === updatedEmployee.id ? updatedEmployee : emp
-        ); 
+        state.loading = false;  
         state.selectedEmployee = null;
       })
       .addCase(updateEmployee.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message || 'Failed to add employee';
+        state.validationErrors = (action.payload as string[]) || ['Failed to update employee'];
       })
       .addCase(deleteEmployee.pending, (state) => {
         state.loading = true;
@@ -85,10 +70,10 @@ const employeeSlice = createSlice({
       })
       .addCase(deleteEmployee.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message || 'Failed to delete employee';        
+        state.validationErrors = (action.payload as string[]) || ['Failed to delete employee'];     
       });
   }
 });
 
-export const { setSelectedEmployee, addNewEmployee } = employeeSlice.actions;
+export const { setSelectedEmployee, clearValidationErrors } = employeeSlice.actions;
 export default employeeSlice.reducer;

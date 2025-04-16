@@ -9,7 +9,7 @@ const Employees: React.FC = () => {
   const dispatch = useAppDispatch();
   
   useEffect(() => { 
-    dispatch(fetchDepartments())
+    dispatch(fetchDepartments());
   });
 
   return  (  
